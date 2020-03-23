@@ -1,0 +1,57 @@
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  labels:
+    app: "{{ template "kube-node-drainer.fullname" . }}"
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: {{ .Release.Name | quote }}
+  name: {{ template "kube-node-drainer.fullname" . }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - pods/eviction
+  verbs:
+  - create
+  - update
+  - get
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  - "extensions"
+  - "apps"
+  resources:
+  - daemonsets
+  - replicasets
+  verbs:
+  - get
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - get
+{{- end }}

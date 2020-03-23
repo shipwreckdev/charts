@@ -1,0 +1,9 @@
+apiVersion: v1
+appVersion: "1.0"
+description: Provides a DaemonSet/Deployment that will watch for ASG autoscale events and drain nodes.
+maintainers:
+  - name: shipwreckdev
+    email: yo@shipwreck.dev
+name: kube-node-drainer
+version: 1.0.0
+home: https://github.com/shipwreckdev/charts
